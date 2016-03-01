@@ -72,7 +72,7 @@ function scrollToTop()
         scroll:toPreviousPage()
     end
     scroll:toPreviousPage()
-    usleep(2*s) -- minumum 2 seconds to capture the hearts
+    usleep(3*s) -- minumum 3 seconds to capture the hearts
 end
 
 function sendHearts()
