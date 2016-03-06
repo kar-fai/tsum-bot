@@ -67,8 +67,13 @@ function claimIndividually()
     end
 end
 
+function isTop() return next(get_win_ranking_icon_line():getTsumObjects()) end
+function isBottom() return next(get_win_plus_on_line():getTsumObjects()) end
+function isZeroScore() return not next(get_win_Number_etc30_last_second_digit_line():getTsumObjects()) end
+function getHeartsArray() return pairs(get_win_button_hearts_on_line():getTsumObjects()) end
+
 function scrollToTop()
-    while not next(get_win_ranking_icon_line():getTsumObjects()) do
+    while not isTop() do
         scroll:toPreviousPage()
     end
     scroll:toPreviousPage()
@@ -76,38 +81,35 @@ function scrollToTop()
 end
 
 function scrollToBottom()
-    while not next(get_win_plus_on_line():getTsumObjects()) do
+    while not isBottom() do
         scroll:toNextPage()
     end
     scroll:toNextPage()
 end
 
-function sendHearts()
-    while next(get_win_Number_etc30_last_second_digit_line():getTsumObjects()) and not next(get_win_plus_on_line():getTsumObjects()) do
-        for index, win_button_heart_on in pairs(get_win_button_hearts_on_line():getTsumObjects()) do
-            win_button_heart_on:
-                tap(win_button_ok, {win_button_close[1], win_button_heart_on}):
-                tap(win_tsum_logo, {win_button_retry2, win_button_ok}):
-                usleep(0.1*s):
-                tap()
+function sendHeartsOnCurrentPage()
+    for index, win_button_heart_on in getHeartsArray() do
+        win_button_heart_on:
+            tap(win_button_ok, {win_button_close[1], win_button_heart_on}):
+            tap(win_tsum_logo, {win_button_retry2, win_button_ok}):
+            usleep(0.1*s):
+            tap()
 
-            usleep(0.1*s)
+        usleep(0.1*s)
+    end
+end
+
+function sendHearts(isStopAtZero)
+    if isStopAtZero == nil then isStopAtZero = true end
+    while not isBottom() do
+        if isStopAtZero then
+            if isZeroScore() then break end
         end
+        sendHeartsOnCurrentPage()
         scroll:toNextPage()
         usleep(0.1*s) -- some delay to ensure function capture the hearts correctly
     end
-
-    if next(get_win_plus_on_line():getTsumObjects()) then
-        for index, win_button_heart_on in pairs(get_win_button_hearts_on_line():getTsumObjects()) do
-            win_button_heart_on:
-                tap(win_button_ok, {win_button_close[1], win_button_heart_on}):
-                tap(win_tsum_logo, {win_button_retry2, win_button_ok}):
-                usleep(0.1*s):
-                tap()
-
-            usleep(0.1*s)
-        end
-    end
+    if isBottom() then sendHeartsOnCurrentPage() end
 end
 
 function standBy(duration)
