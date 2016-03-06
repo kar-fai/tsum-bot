@@ -83,7 +83,7 @@ function scrollToBottom()
 end
 
 function sendHearts()
-    while next(get_win_Number_etc30_last_second_digit_line():getTsumObjects()) do
+    while next(get_win_Number_etc30_last_second_digit_line():getTsumObjects()) and not next(get_win_plus_on_line():getTsumObjects()) do
         for index, win_button_heart_on in pairs(get_win_button_hearts_on_line():getTsumObjects()) do
             win_button_heart_on:
                 tap(win_button_ok, {win_button_close[1], win_button_heart_on}):
@@ -95,6 +95,18 @@ function sendHearts()
         end
         scroll:toNextPage()
         usleep(0.1*s) -- some delay to ensure function capture the hearts correctly
+    end
+
+    if next(get_win_plus_on_line():getTsumObjects()) then
+        for index, win_button_heart_on in pairs(get_win_button_hearts_on_line():getTsumObjects()) do
+            win_button_heart_on:
+                tap(win_button_ok, {win_button_close[1], win_button_heart_on}):
+                tap(win_tsum_logo, {win_button_retry2, win_button_ok}):
+                usleep(0.1*s):
+                tap()
+
+            usleep(0.1*s)
+        end
     end
 end
 
