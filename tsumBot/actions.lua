@@ -75,6 +75,13 @@ function scrollToTop()
     usleep(3*s) -- minumum 3 seconds to capture the hearts
 end
 
+function scrollToBottom()
+    while not next(get_win_plus_on_line():getTsumObjects()) do
+        scroll:toNextPage()
+    end
+    scroll:toNextPage()
+end
+
 function sendHearts()
     while next(get_win_Number_etc30_last_second_digit_line():getTsumObjects()) do
         for index, win_button_heart_on in pairs(get_win_button_hearts_on_line():getTsumObjects()) do

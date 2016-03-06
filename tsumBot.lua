@@ -6,6 +6,7 @@ require("tsumBot.actions")
 -- claimAll()
 -- claimIndividually()
 -- scrollToTop()
+-- scrollToBottom()
 -- sendHearts()
 -- standBy(duration)
 

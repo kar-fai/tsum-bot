@@ -57,6 +57,13 @@ objects["iPad2,1"] = function ()
         end
         return newLineObject({617, 765}, {617, 253}, 50, win_button_hearts_on_constraint)
     end
+
+    get_win_plus_on_line = function (self)
+        local win_plus_on_constraint = function (red, green, blue)
+            return red > 151 and green > 100 and blue < 73
+        end
+        return newLineObject({180, 765}, {180, 253}, 0, win_plus_on_constraint)
+    end
 end
 
 
