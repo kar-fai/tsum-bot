@@ -22,7 +22,7 @@ function claimAll()
     win_button_close[2]:
         wait():
         tap()
-        
+
     usleep(0.1*s)
 end
 
@@ -32,19 +32,19 @@ function claimIndividually()
     local _dirty = false
 
     while _continue do
-        
+
         _dirty = false
-    
+
         win_button_mail:
             wait():
             usleep(0.5*s):
             tap(win_button_matome, {win_button_retry2}):
             usleep(0.5*s)
-            
+
         while win_heart2.detected() do
-        
+
             _dirty = true
-        
+
             win_button_receipt:
                 wait():
                 tap(win_button_ok):
@@ -54,15 +54,15 @@ function claimIndividually()
                 tap(win_button_close[2]):
                 usleep(0.2*s)
         end
-        
+
         if not _dirty then
             _continue = false
         end
-        
+
         win_button_close[2]:
             wait():
             tap()
-            
+
         usleep(0.1*s)
     end
 end

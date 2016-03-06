@@ -8,7 +8,7 @@ else
 end
 
 function newTsumObject(name, x, y, color)
-    
+
     local instanceVariables = {
         name = name,
         x = x,
@@ -19,7 +19,7 @@ function newTsumObject(name, x, y, color)
     local _getName = function (self) return instanceVariables.name end
 
     local _getCoordinate = function (self) return instanceVariables.x, instanceVariables.y end
-    
+
     local _getColor = function (self) return instanceVariables.color end
 
     local _detected = function (self) return getColor(T(instanceVariables.x, instanceVariables.y))==instanceVariables.color end
@@ -35,12 +35,12 @@ function newTsumObject(name, x, y, color)
         end
         if not blockingObjects then return self end
     end
-    
+
     local _usleep = function (self, time)
         usleep(time)
         return self
     end
-    
+
     local _tap = function (self, expectedObjectAfterTap, blockingObjects)
         tap(instanceVariables.x, instanceVariables.y)
         if expectedObjectAfterTap then
@@ -77,7 +77,7 @@ function newLineObject(A, B, gap, constraint)
             return false
         end
     end
-    
+
     local function pointSort(A, B)
         local cases = {
             vertical   = function () if A[2] > B[2] then A, B = B, A end end,
@@ -104,7 +104,7 @@ function newLineObject(A, B, gap, constraint)
         }
 
         local constant, globalMin, globalMax = cases[lineType(A, B)]()
-        
+
         local intervals = {}
         local lowerBound = -1
         local upperBound = -1
@@ -169,7 +169,7 @@ function newLineObject(A, B, gap, constraint)
     end
 
     if not validateCoordinate(A, B) then return end
-    
+
     local instanceVariables = {
         A = {T(A[1], A[2])},
         B = {T(B[1], B[2])},
@@ -183,7 +183,7 @@ function newLineObject(A, B, gap, constraint)
     local intervals = getInterval(instanceVariables.A, instanceVariables.B, lineOfColors)
     local mergedIntervals = getMergeIntervals(intervals, instanceVariables.gap)
     local coordinates = getCoordinates(mergedIntervals, instanceVariables.A, instanceVariables.B)
-    
+
     local _getTsumObjects = function (self) 
         local tsumObjects = {}
         for index, coordinate in pairs(coordinates) do
@@ -191,7 +191,7 @@ function newLineObject(A, B, gap, constraint)
         end
         return tsumObjects
     end
-    
+
     return {
         getTsumObjects = _getTsumObjects 
     }
@@ -199,14 +199,14 @@ end
 
 
 function newScrollObject(id, x_mid, y_top, y_bottom)
-    
+
     local instanceVariables = {
         id = id,
         x_mid = x_mid,
         y_top = y_top,
         y_bottom = y_bottom
     }
-    
+
     local _scroll = function (self, speed, y_start, y_end)
         -- Legacy scroll function
         --[[
@@ -234,7 +234,7 @@ function newScrollObject(id, x_mid, y_top, y_bottom)
         touchUp(instanceVariables.id, instanceVariables.x_mid-2, y_end)
         usleep(speed*ms)
     end
-    
+
     local _toNextPage = function (self, speed)
         local speed = speed or 0.1 -- [Warning] speed == 0.01 will cause reboot
         _scroll(self, speed, instanceVariables.y_bottom, instanceVariables.y_top)
@@ -244,7 +244,7 @@ function newScrollObject(id, x_mid, y_top, y_bottom)
         local speed = speed or 0.05 -- [Warning] speed == 0.01 will cause reboot
         _scroll(self, speed, instanceVariables.y_top + 1, instanceVariables.y_bottom)
     end
-    
+
     return {
         toNextPage = _toNextPage,
         toPreviousPage = _toPreviousPage
