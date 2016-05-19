@@ -4,6 +4,7 @@ AUTO_DETECT_DEVICE_MODEL = true
 
 HEART_LOADING_TIME = 60*60
 OVER_TIME = 3*60
+CLAIM_TIME = 10*60
 
 settings["manual"] = function ()
     SCREEN_RESOLUTION = "768x1024"

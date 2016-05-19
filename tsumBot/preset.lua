@@ -64,6 +64,13 @@ objects["iPad2,1"] = function ()
         end
         return newLineObject({180, 765}, {180, 253}, 0, win_plus_on_constraint)
     end
+	
+    get_win_Number_etc24_last_digit_line = function (self)
+        local player_ranking_above_99_constraint = function (red, green, blue)
+            return red == 255 and green == 255 and blue == 255
+        end
+        return newLineObject({166, 765}, {166, 253}, 0, player_ranking_above_99_constraint)
+    end
 end
 
 
