@@ -2,10 +2,12 @@
 
 <html>
 	<head>
+        <meta name="format-detection" content="telephone=no">
 		<title>Tsum Report (Auto Generated)</title>
 		<style>
             table {
 				border: solid 3px;
+                font-size:xx-large;
 			}
 
 			td {
@@ -14,7 +16,12 @@
 
 			thead td, tfoot td {
 				font-weight: bold;
+                text-align: center;
 			}
+            
+            tbody tr:nth-child(odd) {
+                background: #CCC;
+            }
 		</style>
 	</head>
 
@@ -90,15 +97,20 @@
 
                 var tbr_d0 = tbr.insertCell(-1);
 				tbr_d0.appendChild(document.createTextNode(i));
+                tbr_d0.style.textAlign = "right";
 
                 var tbr_d1 = tbr.insertCell(-1);
 				tbr_d1.appendChild(document.createTextNode(key));
+                tbr_d1.style.textAlign = "center";
+                tbr_d1.style.paddingLeft = "50px";
+                tbr_d1.style.paddingRight = "50px";
 
                 var tbr_d2 = tbr.insertCell(-1);
 				tbr_d2.appendChild(img);
 
                 var tbr_d3 = tbr.insertCell(-1);
 				tbr_d3.appendChild(document.createTextNode(frequency[key]));
+                tbr_d3.style.textAlign = "center";
 			}
 		</script>
 	</body>
