@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<title>Tsum Report (Auto Generated)</title>
+		<style>
+            table {
+				border: solid 3px;
+			}
+
+			td {
+				border: solid 1px;
+			}
+
+			thead td, tfoot td {
+				font-weight: bold;
+			}
+		</style>
+	</head>
+
+	<body>
+		<table id="tsumReportTable"></table>
+		<script>
+            function readFile(file)
+            {
+                var contents = "";
+                var rawFile = new XMLHttpRequest();
+                rawFile.open("GET", file, false);
+                rawFile.onreadystatechange = function ()
+                {
+                    if(rawFile.readyState === 4)
+                    {
+                        if(rawFile.status === 200 || rawFile.status == 0)
+                        {
+                            contents = rawFile.responseText;
+                        }
+                    }
+                }
+                rawFile.send(null);
+                return contents;
+            }
+
+            var csvArray = readFile('data.csv').split(',');
+            csvArray.pop();
+
+            var frequency = {};
+            
+            for(var i=0; i<csvArray.length; i++){
+                var tsumID = csvArray[i];
+                frequency[tsumID] = frequency[tsumID] ? frequency[tsumID] + 1 : 1;
+            }
+            
+			var table = document.getElementById("tsumReportTable");
+            
+			// Create Table Caption (<caption>)
+			var caption = table.createCaption();
+			caption.appendChild(document.createTextNode("Tsum Report"));
+
+			// Create Table Header & Table Footer (<thead> & <tfoot>)
+			var thead = table.createTHead();
+			var tfoot = table.createTFoot();
+			var tbody = table.createTBody();
+
+			// Inserting Row to <thead>
+			var thr = thead.insertRow(-1);
+
+            // Inserting Cells & text to the row in <thead>
+			var thr_d0 = thr.insertCell(-1);
+			thr_d0.appendChild(document.createTextNode("No."));
+
+			var thr_d1 = thr.insertCell(-1);
+			thr_d1.appendChild(document.createTextNode("TsumID"));
+
+			var thr_d2 = thr.insertCell(-1);
+            thr_d2.className = "cell270"
+			thr_d2.appendChild(document.createTextNode("Profile Picture"));
+
+			var thr_d3 = thr.insertCell(-1);
+            thr_d3.appendChild(document.createTextNode("Frequency"));
+            
+            var i = 0;
+            for(var key in frequency) {
+
+                i = i + 1;
+
+                var img = document.createElement("img");
+                img.src = "images/" + key + ".bmp";
+
+                var tbr = tbody.insertRow(-1);
+
+                var tbr_d0 = tbr.insertCell(-1);
+				tbr_d0.appendChild(document.createTextNode(i));
+
+                var tbr_d1 = tbr.insertCell(-1);
+				tbr_d1.appendChild(document.createTextNode(key));
+
+                var tbr_d2 = tbr.insertCell(-1);
+				tbr_d2.appendChild(img);
+
+                var tbr_d3 = tbr.insertCell(-1);
+				tbr_d3.appendChild(document.createTextNode(frequency[key]));
+			}
+		</script>
+	</body>
+</html>
+
+
+

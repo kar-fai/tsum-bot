@@ -31,6 +31,8 @@ function claimIndividually()
     local _continue = true
     local _dirty = false
 
+    local file = io.open(rootDir().."www/data.csv", "a")
+
     while _continue do
 
         _dirty = false
@@ -51,6 +53,7 @@ function claimIndividually()
             checksum = 0
             for i, v in pairs(lineOfColors) do checksum = checksum + v end
             screenshot ("images/"..tostring(checksum)..".bmp", {700,133,86,267});
+            file:write(tostring(checksum)..",")
             ---------------------------------------------------------------------
 
             win_button_receipt:
@@ -71,6 +74,9 @@ function claimIndividually()
 
         usleep(0.1*s)
     end
+
+    file:close()
+
 end
 
 function isTop() return next(get_win_ranking_icon_line():getTsumObjects()) end
