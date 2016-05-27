@@ -69,7 +69,8 @@ objects["iPad2,1"] = function ()
         local player_ranking_above_99_constraint = function (red, green, blue)
             return red == 255 and green == 255 and blue == 255
         end
-        return newLineObject({166, 765}, {166, 253}, 0, player_ranking_above_99_constraint)
+        -- return newLineObject({166, 765}, {166, 253}, 0, player_ranking_above_99_constraint)
+        return newLineObject({166, 381}, {166, 253}, 0, player_ranking_above_99_constraint)
     end
 
     get_first_message_line = function (self)
