@@ -1,33 +1,33 @@
 <!DOCTYPE html>
 
 <html>
-	<head>
+    <head>
         <meta name="format-detection" content="telephone=no">
-		<title>Tsum Report (Auto Generated)</title>
-		<style>
+        <title>Tsum Report (Auto Generated)</title>
+        <style>
             table {
-				border: solid 3px;
+                border: solid 3px;
                 font-size:xx-large;
-			}
+            }
 
-			td {
-				border: solid 1px;
-			}
+            td {
+                border: solid 1px;
+            }
 
-			thead td, tfoot td {
-				font-weight: bold;
+            thead td, tfoot td {
+                font-weight: bold;
                 text-align: center;
-			}
-            
+            }
+
             tbody tr:nth-child(odd) {
                 background: #CCC;
             }
-		</style>
-	</head>
+        </style>
+    </head>
 
-	<body>
-		<table id="tsumReportTable"></table>
-		<script>
+    <body>
+        <table id="tsumReportTable"></table>
+        <script>
             function readFile(file)
             {
                 var contents = "";
@@ -51,12 +51,12 @@
             csvArray.pop();
 
             var frequency = {};
-            
+
             for(var i=0; i<csvArray.length; i++){
                 var tsumID = csvArray[i];
                 frequency[tsumID] = frequency[tsumID] ? frequency[tsumID] + 1 : 1;
             }
-            
+
             var tuples = []
             for (var key in frequency) tuples.push([key, frequency[key]]);
             tuples.sort(function(a, b) {
@@ -65,32 +65,32 @@
                 return a > b ? -1 : (a < b ? 1 : 0);
             });
 
-			var table = document.getElementById("tsumReportTable");
-            
-			// Create Table Caption (<caption>)
-			var caption = table.createCaption();
-			caption.appendChild(document.createTextNode("Tsum Report"));
+            var table = document.getElementById("tsumReportTable");
 
-			// Create Table Header & Table Footer (<thead> & <tfoot>)
-			var thead = table.createTHead();
-			var tfoot = table.createTFoot();
-			var tbody = table.createTBody();
+            // Create Table Caption (<caption>)
+            var caption = table.createCaption();
+            caption.appendChild(document.createTextNode("Tsum Report"));
 
-			// Inserting Row to <thead>
-			var thr = thead.insertRow(-1);
+            // Create Table Header & Table Footer (<thead> & <tfoot>)
+            var thead = table.createTHead();
+            var tfoot = table.createTFoot();
+            var tbody = table.createTBody();
+
+            // Inserting Row to <thead>
+            var thr = thead.insertRow(-1);
 
             // Inserting Cells & text to the row in <thead>
-			var thr_d0 = thr.insertCell(-1);
-			thr_d0.appendChild(document.createTextNode("No."));
+            var thr_d0 = thr.insertCell(-1);
+            thr_d0.appendChild(document.createTextNode("No."));
 
-			var thr_d1 = thr.insertCell(-1);
-			thr_d1.appendChild(document.createTextNode("TsumID"));
+            var thr_d1 = thr.insertCell(-1);
+            thr_d1.appendChild(document.createTextNode("TsumID"));
 
-			var thr_d2 = thr.insertCell(-1);
+            var thr_d2 = thr.insertCell(-1);
             thr_d2.className = "cell270"
-			thr_d2.appendChild(document.createTextNode("Profile Picture"));
+            thr_d2.appendChild(document.createTextNode("Profile Picture"));
 
-			var thr_d3 = thr.insertCell(-1);
+            var thr_d3 = thr.insertCell(-1);
             thr_d3.appendChild(document.createTextNode("Frequency"));
             
             for(var i = 0; i < tuples.length; i++) {
@@ -104,24 +104,24 @@
                 var tbr = tbody.insertRow(-1);
 
                 var tbr_d0 = tbr.insertCell(-1);
-				tbr_d0.appendChild(document.createTextNode(i));
+                tbr_d0.appendChild(document.createTextNode(i));
                 tbr_d0.style.textAlign = "right";
 
                 var tbr_d1 = tbr.insertCell(-1);
-				tbr_d1.appendChild(document.createTextNode(key));
+                tbr_d1.appendChild(document.createTextNode(key));
                 tbr_d1.style.textAlign = "center";
                 tbr_d1.style.paddingLeft = "50px";
                 tbr_d1.style.paddingRight = "50px";
 
                 var tbr_d2 = tbr.insertCell(-1);
-				tbr_d2.appendChild(img);
+                tbr_d2.appendChild(img);
 
                 var tbr_d3 = tbr.insertCell(-1);
-				tbr_d3.appendChild(document.createTextNode(value));
+                tbr_d3.appendChild(document.createTextNode(value));
                 tbr_d3.style.textAlign = "center";
-			}
-		</script>
-	</body>
+            }
+        </script>
+    </body>
 </html>
 
 
