@@ -57,6 +57,14 @@
                 frequency[tsumID] = frequency[tsumID] ? frequency[tsumID] + 1 : 1;
             }
             
+            var tuples = []
+            for (var key in frequency) tuples.push([key, frequency[key]]);
+            tuples.sort(function(a, b) {
+                a = a[1];
+                b = b[1];
+                return a > b ? -1 : (a < b ? 1 : 0);
+            });
+
 			var table = document.getElementById("tsumReportTable");
             
 			// Create Table Caption (<caption>)
@@ -85,10 +93,10 @@
 			var thr_d3 = thr.insertCell(-1);
             thr_d3.appendChild(document.createTextNode("Frequency"));
             
-            var i = 0;
-            for(var key in frequency) {
+            for(var i = 0; i < tuples.length; i++) {
 
-                i = i + 1;
+                var key = tuples[i][0];
+                var value = tuples[i][1];
 
                 var img = document.createElement("img");
                 img.src = "images/" + key + ".bmp";
@@ -109,7 +117,7 @@
 				tbr_d2.appendChild(img);
 
                 var tbr_d3 = tbr.insertCell(-1);
-				tbr_d3.appendChild(document.createTextNode(frequency[key]));
+				tbr_d3.appendChild(document.createTextNode(value));
                 tbr_d3.style.textAlign = "center";
 			}
 		</script>
