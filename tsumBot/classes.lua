@@ -180,20 +180,30 @@ function newLineObject(A, B, gap, constraint)
     instanceVariables.A, instanceVariables.B = pointSort(instanceVariables.A, instanceVariables.B)
     local lineOfPixels = createLine(instanceVariables.A, instanceVariables.B)
     local lineOfColors = getColors(lineOfPixels)
-    local intervals = getInterval(instanceVariables.A, instanceVariables.B, lineOfColors)
-    local mergedIntervals = getMergeIntervals(intervals, instanceVariables.gap)
-    local coordinates = getCoordinates(mergedIntervals, instanceVariables.A, instanceVariables.B)
 
-    local _getTsumObjects = function (self) 
-        local tsumObjects = {}
-        for index, coordinate in pairs(coordinates) do
-            table.insert(tsumObjects, newTsumObject("", coordinate[1], coordinate[2], getColor(T(coordinate[1], coordinate[2]))))
+    if instanceVariables.constraint == nil then
+        local _getTsumObjects = nil
+    else
+        local intervals = getInterval(instanceVariables.A, instanceVariables.B, lineOfColors)
+        local mergedIntervals = getMergeIntervals(intervals, instanceVariables.gap)
+        local coordinates = getCoordinates(mergedIntervals, instanceVariables.A, instanceVariables.B)
+
+        local _getTsumObjects = function (self)
+            local tsumObjects = {}
+            for index, coordinate in pairs(coordinates) do
+                table.insert(tsumObjects, newTsumObject("", coordinate[1], coordinate[2], getColor(T(coordinate[1], coordinate[2]))))
+            end
+            return tsumObjects
         end
-        return tsumObjects
+    end
+
+    local _getLineOfColors = function (self)
+        return lineOfColors
     end
 
     return {
-        getTsumObjects = _getTsumObjects 
+        getTsumObjects = _getTsumObjects,
+        getLineOfColors = _getLineOfColors
     }
 end
 

@@ -71,6 +71,14 @@ objects["iPad2,1"] = function ()
         end
         return newLineObject({166, 765}, {166, 253}, 0, player_ranking_above_99_constraint)
     end
+
+    get_first_message_line = function (self)
+        return newLineObject({133, 246}, {399, 246}, nil, nil)
+    end
+
+    screenshot_first_message = function (checksum)
+        screenshot ("images/"..tostring(checksum)..".bmp", {700,133,86,267})
+    end
 end
 
 

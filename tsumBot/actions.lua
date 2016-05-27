@@ -26,6 +26,8 @@ function claimAll()
     usleep(0.1*s)
 end
 
+function getLineOfColorsFromFirstMessage() return get_first_message_line():getLineOfColors() end
+
 function claimIndividually()
 
     local _continue = true
@@ -46,15 +48,12 @@ function claimIndividually()
 
             _dirty = true
 
-            ---------------------------------------------------------------------
-            lineOfPixels = {}
-            for y = 133, 399 do table.insert(lineOfPixels, {778, y}) end
-            lineOfColors = getColors(lineOfPixels)
+            -----------------------------------------------------------------------------------
             checksum = 0
-            for i, v in pairs(lineOfColors) do checksum = checksum + v end
-            screenshot ("images/"..tostring(checksum)..".bmp", {700,133,86,267});
+            for i, v in pairs(getLineOfColorsFromFirstMessage()) do checksum = checksum + v end
+            screenshot_first_message(checksum)
             file:write(tostring(checksum)..",")
-            ---------------------------------------------------------------------
+            -----------------------------------------------------------------------------------
 
             win_button_receipt:
                 wait():
