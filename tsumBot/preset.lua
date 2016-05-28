@@ -104,9 +104,9 @@ objects["iPad5,3"] = function ()
     win_button_mail = newTsumObject("win_button_mail", 1236, 295, 16237369)
     win_button_matome = newTsumObject("win_button_matome", 1047, 1604, 15708688)
     win_button_ok = newTsumObject("win_button_ok", 1055, 1186, 15707664)
-     win_button_receipt = newTsumObject("win_button_receipt", 594, 281, 10846794)
+    win_button_receipt = newTsumObject("win_button_receipt", 1160, 563, 15707656)
     win_button_retry2 = newTsumObject("win_button_retry2", 1047, 1175, 16232968)
-     win_heart2 = newTsumObject("win_heart2", 219, 313, 15154308)
+    win_heart2 = newTsumObject("win_heart2", 438, 626, 15154316)
     win_tsum_logo = newTsumObject("win_tsum_logo", 778, 1161, 16252804)
 
     scroll = newScrollObject(0, 1536/2, 504.1, 1530.0)
@@ -130,5 +130,27 @@ objects["iPad5,3"] = function ()
             return red > 200 and green < 100
         end
         return newLineObject({2*617, 2*765}, {2*617, 2*253}, 50, win_button_hearts_on_constraint)
+    end
+
+    get_win_plus_on_line = function (self)
+        local win_plus_on_constraint = function (red, green, blue)
+            return red > 151 and green > 100 and blue < 73
+        end
+        return newLineObject({2*180, 2*765}, {2*180, 2*253}, 0, win_plus_on_constraint)
+    end
+
+    get_win_Number_etc24_last_digit_line = function (self)
+        local player_ranking_above_99_constraint = function (red, green, blue)
+            return red == 255 and green == 255 and blue == 255
+        end
+        return newLineObject({2*166, 2*381}, {2*166, 2*253}, 0, player_ranking_above_99_constraint)
+    end
+
+    get_first_message_line = function (self)
+        return newLineObject({266, 492}, {799, 492}, nil, nil)
+    end
+    
+    screenshot_first_message = function (checksum)
+        screenshot ("images/"..tostring(checksum)..".bmp", {266,476,534,172})
     end
 end

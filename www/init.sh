@@ -12,15 +12,18 @@ echo "Terminate the script" &&\
 exit 0;
 echo "Done"
 
-echo -n "Removing outdated images... "
-rm -rf $DIR/images
-echo "Done"
+if [[ "$(uname -m)" == iPad2,* ]]; then
+    echo -n "Removing outdated images... "
+    rm -rf $DIR/images
+    echo "Done"
 
-echo -n "Copying latest images... "
-cp -r $DIR/../images $DIR
-echo "Done"
+    echo -n "Copying latest images... "
+    cp -r $DIR/../images $DIR
+    echo "Done"
 
-echo -n "Rotating all images... "
-mogrify -rotate 270 $DIR/images/*.bmp
-echo "Done"
-
+    echo -n "Rotating all images... "
+    mogrify -rotate 270 $DIR/images/*.bmp
+    echo "Done"
+else
+    ln -s $DIR/../images $DIR/images
+fi
