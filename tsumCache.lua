@@ -8,7 +8,11 @@ function filesize(directory)
     local handle = io.popen(command)
     local result = handle:read("*a")
     handle:close()
-    return result:sub(0,-2)
+    if result == nil or result == "" then
+        return "deleted"
+    else
+        return result:sub(0,-2)
+    end
 end
 
 local label = {type=CONTROLLER_TYPE.LABEL, text="Choose which you want to delete"}
@@ -19,8 +23,6 @@ local controls = {label, images_switch, wwww_images_switch, www_datacsv_switch}
 local enableRemember = true;
 
 dialog(controls, enableRemember);
-
---alert(string.format("images/:%d, www/images:%d, www/data.csv:%d", images_switch.value, wwww_images_switch.value, www_datacsv_switch.value))
 
 if images_switch.value == 1 then rm("images/*") end
 
