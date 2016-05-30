@@ -1,130 +1,90 @@
 <!DOCTYPE html>
-
-<html>
+<html >
     <head>
-        <meta name="format-detection" content="telephone=no">
+        <meta charset="UTF-8">
         <title>Tsum Report (Auto Generated)</title>
-        <style>
-            table {
-                border: solid 3px;
-                font-size:xx-large;
-            }
-
-            td {
-                border: solid 1px;
-            }
-
-            thead td, tfoot td {
-                font-weight: bold;
-                text-align: center;
-            }
-
-            tbody tr:nth-child(odd) {
-                background: #CCC;
-            }
-        </style>
+        <link rel='stylesheet prefetch' href='http://maxcdn.bootstrapcdn.com/bootswatch/3.2.0/sandstone/bootstrap.min.css'>
+        <link rel='stylesheet prefetch' href='http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css'>
+        <link rel="stylesheet" href="css/style.css">
     </head>
 
     <body>
-        <table id="tsumReportTable"></table>
-        <script>
-            function readFile(file)
-            {
-                var contents = "";
-                var rawFile = new XMLHttpRequest();
-                rawFile.open("GET", file, false);
-                rawFile.onreadystatechange = function ()
-                {
-                    if(rawFile.readyState === 4)
-                    {
-                        if(rawFile.status === 200 || rawFile.status == 0)
-                        {
-                            contents = rawFile.responseText;
-                        }
-                    }
-                }
-                rawFile.send(null);
-                return contents;
-            }
 
-            var csvArray = readFile('data.csv').split(',');
-            csvArray.pop();
+        <div class="container" ng-app="mainApp" ng-controller="mainController">
 
-            var frequency = {};
+            <div class="alert alert-info">
+                <p>Sort Type: {{ sortType }}</p>
+                <p>Sort Reverse: {{ sortReverse }}</p>
+                <p>Search Query: {{ searchKey }}</p>
+            </div>
 
-            for(var i=0; i<csvArray.length; i++){
-                var tsumID = csvArray[i];
-                frequency[tsumID] = frequency[tsumID] ? frequency[tsumID] + 1 : 1;
-            }
+            <form>
+                <div class="form-group">
+                    <div class="input-group">
+                        <div class="input-group-addon"><i class="fa fa-search"></i></div>
+                        <input type="text" class="form-control" placeholder="Search the Tsum" ng-model="searchKey">
+                    </div>      
+                </div>
+            </form>
 
-            var tuples = []
-            for (var key in frequency) tuples.push([key, frequency[key]]);
-            tuples.sort(function(a, b) {
-                a = a[1];
-                b = b[1];
-                return a > b ? -1 : (a < b ? 1 : 0);
-            });
+            <table class="table table-bordered table-striped">
 
-            var table = document.getElementById("tsumReportTable");
+                <thead>
+                    <tr>
 
-            // Create Table Caption (<caption>)
-            var caption = table.createCaption();
-            caption.appendChild(document.createTextNode("Tsum Report"));
+                        <td>
+                            <a href="#">
+                                No. 
+                            </a>
+                        </td>
 
-            // Create Table Header & Table Footer (<thead> & <tfoot>)
-            var thead = table.createTHead();
-            var tfoot = table.createTFoot();
-            var tbody = table.createTBody();
+                        <td>
+                            <a href="#" ng-click="sortType = 'tsumID'; sortReverse = !sortReverse">
+                                Tsum ID 
+                                <span ng-show="sortType == 'tsumID' && !sortReverse" class="fa fa-caret-down"></span>
+                                <span ng-show="sortType == 'tsumID' && sortReverse" class="fa fa-caret-up"></span>
+                            </a>
+                        </td>
 
-            // Inserting Row to <thead>
-            var thr = thead.insertRow(-1);
+                        <td>
+                            <a href="#">
+                                Profile Picture 
+                            </a>
+                        </td>
 
-            // Inserting Cells & text to the row in <thead>
-            var thr_d0 = thr.insertCell(-1);
-            thr_d0.appendChild(document.createTextNode("No."));
+                        <td>
+                            <a href="#" ng-click="sortType = 'frequency'; sortReverse = !sortReverse">
+                                Frequency 
+                                <span ng-show="sortType == 'frequency' && !sortReverse" class="fa fa-caret-down"></span>
+                                <span ng-show="sortType == 'frequency' && sortReverse" class="fa fa-caret-up"></span>
+                            </a>
+                        </td>
 
-            var thr_d1 = thr.insertCell(-1);
-            thr_d1.appendChild(document.createTextNode("TsumID"));
+                    </tr>
+                </thead>
 
-            var thr_d2 = thr.insertCell(-1);
-            thr_d2.className = "cell270"
-            thr_d2.appendChild(document.createTextNode("Profile Picture"));
+                <tbody>
+                    <tr ng-repeat="data in claimRecords | orderBy:sortType:sortReverse | filter:searchKey">
+                        <td>{{ $index }}</td>
+                        <td>{{ data.tsumID }}</td>
+                        <td><img ng-src="images/{{ data.tsumID }}.bmp"/></td>
+                        <td>{{ data.frequency }}</td>
+                    </tr>
+                </tbody>
 
-            var thr_d3 = thr.insertCell(-1);
-            thr_d3.appendChild(document.createTextNode("Frequency"));
-            
-            for(var i = 0; i < tuples.length; i++) {
+            </table>
 
-                var key = tuples[i][0];
-                var value = tuples[i][1];
+            <p class="text-center text-muted">
+                <a href="#" target="_blank">Read the Tutorial</a>
+            </p>
 
-                var img = document.createElement("img");
-                img.src = "images/" + key + ".bmp";
-                img.width = "267";
-                img.height = "86";
+            <p class="text-center">
+                by <a href="http://scotch.io" target="_blank">scotch.io</a>
+            </p>
+        </div>
 
-                var tbr = tbody.insertRow(-1);
+        <script src='http://ajax.googleapis.com/ajax/libs/angularjs/1.3.2/angular.min.js'></script>
+        <script src="js/index.js"></script>
 
-                var tbr_d0 = tbr.insertCell(-1);
-                tbr_d0.appendChild(document.createTextNode(i));
-                tbr_d0.style.textAlign = "right";
-
-                var tbr_d1 = tbr.insertCell(-1);
-                tbr_d1.appendChild(document.createTextNode(key));
-                tbr_d1.style.textAlign = "center";
-                tbr_d1.style.paddingLeft = "50px";
-                tbr_d1.style.paddingRight = "50px";
-
-                var tbr_d2 = tbr.insertCell(-1);
-                tbr_d2.appendChild(img);
-
-                var tbr_d3 = tbr.insertCell(-1);
-                tbr_d3.appendChild(document.createTextNode(value));
-                tbr_d3.style.textAlign = "center";
-            }
-        </script>
     </body>
 </html>
-
-
-
