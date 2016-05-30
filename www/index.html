@@ -67,7 +67,7 @@
                     <tr ng-repeat="data in claimRecords | orderBy:sortType:sortReverse | filter:searchKey">
                         <td>{{ $index }}</td>
                         <td>{{ data.tsumID }}</td>
-                        <td><img ng-src="images/{{ data.tsumID }}.bmp"/></td>
+                        <td><img ng-src="images/{{ data.tsumID }}.bmp" width="267" height="86"/></td>
                         <td>{{ data.frequency }}</td>
                     </tr>
                 </tbody>
