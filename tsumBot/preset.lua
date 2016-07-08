@@ -99,17 +99,17 @@ end
 objects["iPad5,3"] = function ()
     win_button_close = {
         newTsumObject("win_button_close", 767, 1579, 16231944),
-        newTsumObject("win_button_close", 767, 1899, 16230920)
+        newTsumObject("win_button_close", 767, 1899, 16231944)
     }
-    win_button_mail = newTsumObject("win_button_mail", 1236, 295, 16237369)
+    win_button_mail = newTsumObject("win_button_mail", 1236, 295, 16238402)
     win_button_matome = newTsumObject("win_button_matome", 1047, 1604, 15708688)
-    win_button_ok = newTsumObject("win_button_ok", 1055, 1186, 15707664)
-    win_button_receipt = newTsumObject("win_button_receipt", 1160, 563, 15707656)
+    win_button_ok = newTsumObject("win_button_ok", 1032, 1195, 15707656)
+    win_button_receipt = newTsumObject("win_button_receipt", 1160, 563, 15708680)
     win_button_retry2 = newTsumObject("win_button_retry2", 1047, 1175, 16232968)
-    win_heart2 = newTsumObject("win_heart2", 438, 626, 15154316)
+    win_heart2 = newTsumObject("win_heart2", 438, 626, 15154308)
     win_tsum_logo = newTsumObject("win_tsum_logo", 778, 1161, 16252804)
 
-    scroll = newScrollObject(0, 1536/2, 504.1, 1530.0)
+    scroll = newScrollObject(0, 1536/2, 510, 1520.0)
 
     get_win_ranking_icon_line = function (self)
         local win_ranking_icon1_constraint = function (red, green, blue)
