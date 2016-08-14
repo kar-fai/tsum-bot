@@ -4,7 +4,7 @@ This script aims to give convenience to those who want to send hearts automatica
 
 ## Requirements on mobile device
 
-* iOS device
+* iOS device : iPad 2 WiFi, iPad Air 2 WiFi
 * install AutoTouch (latest)
 
 ## Features of this script
